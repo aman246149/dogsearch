@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size.width;
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -53,7 +54,9 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: size < 350
+            ? EdgeInsets.all(32.0)
+            : EdgeInsets.symmetric(horizontal: 300.0),
         child: Consumer<DogProvider>(
           builder: (context, value, child) {
             if (value.isLoading) {
