@@ -19,6 +19,7 @@ class DogProvider extends ChangeNotifier {
 
     if (resp.isLeft) {
       resp.mapLeft((left) => errormessage = left.message);
+      print(errormessage);
     }
     isLoading = false;
     notifyListeners();

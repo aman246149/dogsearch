@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dogs/features/homepage/model/dogModel.dart';
 import 'package:dogs/features/homepage/view/provider/dogprovider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -54,19 +57,25 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: size < 350
+        padding: size < 400
             ? EdgeInsets.all(32.0)
-            : EdgeInsets.symmetric(horizontal: 300.0),
+            : EdgeInsets.symmetric(horizontal: 200.0),
         child: Consumer<DogProvider>(
           builder: (context, value, child) {
             if (value.isLoading) {
-              return Center(
-                  child: Lottie.asset(
-                "assets/lottie/animal.json",
-                frameRate: FrameRate(120),
-                repeat: true,
-                height: 150,
-              ));
+              if (kIsWeb) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return Center(
+                    child: Lottie.asset(
+                  "assets/lottie/animal.json",
+                  frameRate: FrameRate(120),
+                  repeat: true,
+                  height: 150,
+                ));
+              }
             }
             if (value.isLoading == false) {
               dogslist = value.dogs;
